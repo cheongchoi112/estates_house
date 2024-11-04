@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 
 class FirebaseApiClient {
   FirebaseApiClient._privateConstructor();
@@ -14,8 +15,13 @@ class FirebaseApiClient {
 
   // Initialize the Dio instance and interceptors
   FirebaseApiClient._privateConstructor1() {
-    _dio.options.baseUrl =
-        'http://127.0.0.1:5001/house-platform-78131/us-central1';
+    if (kDebugMode) {
+      _dio.options.baseUrl =
+          'http://127.0.0.1:5001/house-platform-78131/us-central1';
+    } else {
+      _dio.options.baseUrl =
+          'https://console.firebase.google.com/project/house-platform-78131/usage/details';
+    }
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
         String? token = await _getBearerToken();
@@ -65,7 +71,7 @@ class FirebaseApiClient {
         print('Error: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error: $e');
+      debugPrint('Error: $e');
     }
     return null;
   }
