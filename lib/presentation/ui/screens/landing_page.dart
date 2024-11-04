@@ -3,6 +3,7 @@ import 'package:estates_house/domain/user_singleton.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import '../widgets/property_card.dart';
+import '../widgets/property_list.dart';
 import '../../../domain/entities/property.dart';
 
 class LandingPage extends StatefulWidget {
@@ -27,6 +28,7 @@ class _LandingPageState extends State<LandingPage> {
 
   Future<void> _search() async {
     final criteria = SearchCriteria(
+      keyword: _searchController.text,
       city: selectedCity,
       propertyType: selectedPropertyType,
       listingType: selectedListingType,
@@ -87,83 +89,74 @@ class _LandingPageState extends State<LandingPage> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                TextField(
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                    hintText: 'Search properties...',
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.search),
-                      onPressed: _search,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: [
-                    DropdownButton<String>(
-                      hint: const Text('City'),
-                      value: selectedCity,
-                      items: ['Toronto', 'Hamilton']
-                          .map(
-                              (c) => DropdownMenuItem(value: c, child: Text(c)))
-                          .toList(),
-                      onChanged: (value) =>
-                          setState(() => selectedCity = value),
-                    ),
-                    DropdownButton<String>(
-                      hint: const Text('Property Type'),
-                      value: selectedPropertyType,
-                      items: ['House', 'Condo']
-                          .map((type) =>
-                              DropdownMenuItem(value: type, child: Text(type)))
-                          .toList(),
-                      onChanged: (value) =>
-                          setState(() => selectedPropertyType = value),
-                    ),
-                    DropdownButton<String>(
-                      hint: const Text('Listing Type'),
-                      value: selectedListingType,
-                      items: ['For Sale', 'For Rent']
-                          .map((type) =>
-                              DropdownMenuItem(value: type, child: Text(type)))
-                          .toList(),
-                      onChanged: (value) =>
-                          setState(() => selectedListingType = value),
-                    ),
-                    ElevatedButton.icon(
-                      onPressed: _clearFilters,
-                      icon: const Icon(Icons.clear),
-                      label: const Text('Clear Filters'),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 12),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  TextField(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      hintText: 'Search properties...',
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.search),
+                        onPressed: _search,
                       ),
                     ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
-          Expanded(
-            child: properties.isEmpty
-                ? const Center(child: Text('No properties found.'))
-                : ListView.builder(
-                    itemCount: properties.length,
-                    itemBuilder: (context, index) => PropertyCard(
-                      property: properties[index],
-                    ),
                   ),
-          ),
-        ],
+                  const SizedBox(height: 16),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      DropdownButton<String>(
+                        hint: const Text('City'),
+                        value: selectedCity,
+                        items: ['Toronto', 'Hamilton']
+                            .map((c) =>
+                                DropdownMenuItem(value: c, child: Text(c)))
+                            .toList(),
+                        onChanged: (value) =>
+                            setState(() => selectedCity = value),
+                      ),
+                      DropdownButton<String>(
+                        hint: const Text('Property Type'),
+                        value: selectedPropertyType,
+                        items: ['House', 'Condo']
+                            .map((type) => DropdownMenuItem(
+                                value: type, child: Text(type)))
+                            .toList(),
+                        onChanged: (value) =>
+                            setState(() => selectedPropertyType = value),
+                      ),
+                      DropdownButton<String>(
+                        hint: const Text('Listing Type'),
+                        value: selectedListingType,
+                        items: ['For Sale', 'For Rent']
+                            .map((type) => DropdownMenuItem(
+                                value: type, child: Text(type)))
+                            .toList(),
+                        onChanged: (value) =>
+                            setState(() => selectedListingType = value),
+                      ),
+                      ElevatedButton.icon(
+                        onPressed: _clearFilters,
+                        icon: const Icon(Icons.clear),
+                        label: const Text('Clear Filters'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            PropertyList(
+              properties: properties,
+            ),
+          ],
+        ),
       ),
     );
   }

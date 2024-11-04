@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import '../../../domain/user_singleton.dart';
 import '../../../domain/entities/property.dart';
-import '../widgets/property_card.dart';
+import '../widgets/property_list.dart';
 
 class UserDashboard extends StatefulWidget {
   const UserDashboard({super.key});
@@ -204,14 +204,10 @@ class _UserDashboardState extends State<UserDashboard> {
                 ),
               ),
               const SizedBox(height: 20),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: userProperties.length,
-                itemBuilder: (context, index) => PropertyCard(
-                  property: userProperties[index],
-                  onDelete: () => _deleteProperty(userProperties[index].id),
-                ),
+              PropertyList(
+                properties: userProperties,
+                allowDelete: true,
+                onDelete: _deleteProperty,
               ),
             ],
           ),

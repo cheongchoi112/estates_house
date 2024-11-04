@@ -5,12 +5,14 @@ ThemeData getMaterial3Theme() {
   return ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: Colors.blue, // Materialized Design blue
+      seedColor: Colors.blue,
       brightness: Brightness.light,
     ),
-    textTheme: ThemeData.light().textTheme.apply(
-          fontFamily: 'Roboto', // Or your preferred Material 3 font
-        ),
+    textTheme: GoogleFonts.robotoTextTheme().copyWith(
+      bodyLarge: GoogleFonts.roboto(fontSize: 16),
+      bodyMedium: GoogleFonts.roboto(fontSize: 14),
+      titleLarge: GoogleFonts.roboto(fontSize: 32, fontWeight: FontWeight.bold),
+    ),
     appBarTheme: const AppBarTheme(
       centerTitle: true,
       titleTextStyle: TextStyle(
@@ -18,11 +20,9 @@ ThemeData getMaterial3Theme() {
         fontSize: 20,
       ),
     ),
-    // Add more component themes as needed (e.g., ElevatedButtonThemeData, TextButtonThemeData)
   );
 }
 
-// For dark mode:
 ThemeData getMaterial3DarkTheme() {
   return ThemeData(
     useMaterial3: true,
@@ -30,9 +30,11 @@ ThemeData getMaterial3DarkTheme() {
       seedColor: Colors.blue,
       brightness: Brightness.dark,
     ),
-    textTheme: ThemeData.dark().textTheme.apply(
-          fontFamily: 'Roboto',
-        ),
+    textTheme: GoogleFonts.robotoTextTheme(ThemeData.dark().textTheme).copyWith(
+      bodyLarge: GoogleFonts.roboto(fontSize: 16),
+      bodyMedium: GoogleFonts.roboto(fontSize: 14),
+      titleLarge: GoogleFonts.roboto(fontSize: 32, fontWeight: FontWeight.bold),
+    ),
     appBarTheme: const AppBarTheme(
       centerTitle: true,
       titleTextStyle: TextStyle(
@@ -40,6 +42,5 @@ ThemeData getMaterial3DarkTheme() {
         fontSize: 20,
       ),
     ),
-    // Add more component themes as needed
   );
 }
