@@ -22,22 +22,23 @@ class _LoginPageState extends State<LoginPage> {
         email: _usernameController.text,
         password: _passwordController.text,
       );
-      print('Successfully logged in: ${userCredential.user?.email}');
+
+      debugPrint('Successfully logged in: ${userCredential.user?.email}');
       userCredential.user?.getIdToken().then((value) {
         if (value != null) {
           UserSingleton().setUserData(value, userCredential.user?.email ?? '');
           Navigator.pushReplacementNamed(context, '/dashboard');
-          print('Token: $value');
+          debugPrint('Token: $value');
         }
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print('No user found for that email.');
+        debugPrint('No user found for that email.');
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided.');
+        debugPrint('Wrong password provided.');
       }
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 
@@ -55,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pushReplacementNamed(context, '/dashboard');
       }
     } catch (e) {
-      // Handle error
+      debugPrint(e.toString());
     }
   }
 

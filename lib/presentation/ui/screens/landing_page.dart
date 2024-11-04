@@ -1,8 +1,8 @@
-import 'package:estates_house/data/datasources/firebseApiClient.dart';
+import 'package:estates_house/core/network/firebseApiClient.dart';
+import 'package:estates_house/domain/user_singleton.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import '../widgets/property_card.dart';
-import '../../../domain/user_singleton.dart';
 import '../../../domain/entities/property.dart';
 
 class LandingPage extends StatefulWidget {
@@ -20,6 +20,11 @@ class _LandingPageState extends State<LandingPage> {
   String? selectedListingType;
   final dio = Dio();
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
   Future<void> _search() async {
     final criteria = SearchCriteria(
       city: selectedCity,
@@ -35,6 +40,7 @@ class _LandingPageState extends State<LandingPage> {
       );
 
       setState(() {
+        properties = [];
         final responseData = response.data as Map<String, dynamic>;
 
         final propertiesList =
@@ -50,15 +56,34 @@ class _LandingPageState extends State<LandingPage> {
     }
   }
 
+  void _clearFilters() {
+    setState(() {
+      selectedCity = null;
+      selectedPropertyType = null;
+      selectedListingType = null;
+      _searchController.clear();
+      setState(() {
+        properties = []; // Empty the listing before loading new properties
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Property Search'),
+        title: const Text('Property Landing Page'),
         actions: [
           IconButton(
             icon: const Icon(Icons.person),
-            onPressed: () => Navigator.pushNamed(context, '/login'),
+            onPressed: () {
+              final token = UserSingleton().token;
+              if (token != null) {
+                Navigator.pushNamed(context, '/dashboard');
+              } else {
+                Navigator.pushNamed(context, '/login');
+              }
+            },
           ),
         ],
       ),
@@ -81,6 +106,7 @@ class _LandingPageState extends State<LandingPage> {
                 const SizedBox(height: 16),
                 Wrap(
                   spacing: 8,
+                  runSpacing: 8,
                   children: [
                     DropdownButton<String>(
                       hint: const Text('City'),
@@ -92,19 +118,50 @@ class _LandingPageState extends State<LandingPage> {
                       onChanged: (value) =>
                           setState(() => selectedCity = value),
                     ),
-                    // Add other filter dropdowns similarly
+                    DropdownButton<String>(
+                      hint: const Text('Property Type'),
+                      value: selectedPropertyType,
+                      items: ['House', 'Condo']
+                          .map((type) =>
+                              DropdownMenuItem(value: type, child: Text(type)))
+                          .toList(),
+                      onChanged: (value) =>
+                          setState(() => selectedPropertyType = value),
+                    ),
+                    DropdownButton<String>(
+                      hint: const Text('Listing Type'),
+                      value: selectedListingType,
+                      items: ['For Sale', 'For Rent']
+                          .map((type) =>
+                              DropdownMenuItem(value: type, child: Text(type)))
+                          .toList(),
+                      onChanged: (value) =>
+                          setState(() => selectedListingType = value),
+                    ),
+                    ElevatedButton.icon(
+                      onPressed: _clearFilters,
+                      icon: const Icon(Icons.clear),
+                      label: const Text('Clear Filters'),
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12),
+                      ),
+                    ),
                   ],
                 ),
               ],
             ),
           ),
+          const SizedBox(height: 16),
           Expanded(
-            child: ListView.builder(
-              itemCount: properties.length,
-              itemBuilder: (context, index) => PropertyCard(
-                property: properties[index],
-              ),
-            ),
+            child: properties.isEmpty
+                ? const Center(child: Text('No properties found.'))
+                : ListView.builder(
+                    itemCount: properties.length,
+                    itemBuilder: (context, index) => PropertyCard(
+                      property: properties[index],
+                    ),
+                  ),
           ),
         ],
       ),

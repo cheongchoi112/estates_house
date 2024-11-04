@@ -1,4 +1,4 @@
-import 'package:estates_house/data/datasources/firebseApiClient.dart';
+import 'package:estates_house/core/network/firebseApiClient.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import '../../../domain/user_singleton.dart';
@@ -33,7 +33,9 @@ class _UserDashboardState extends State<UserDashboard> {
 
   Future<void> _loadUserProperties() async {
     try {
-      final response = await dio.get(
+      FirebaseApiClient apiClient = FirebaseApiClient();
+
+      final response = await apiClient.dio.get(
         '${UserSingleton.baseUrl}/handle_property_crud/user/properties',
         options: Options(
           headers: {'Authorization': 'Bearer ${UserSingleton().token}'},
@@ -41,6 +43,9 @@ class _UserDashboardState extends State<UserDashboard> {
       );
 
       setState(() {
+        if (response.data is! Map<String, dynamic>) {
+          return;
+        }
         final responseData = response.data as Map<String, dynamic>;
 
         final propertiesList =
@@ -120,6 +125,15 @@ class _UserDashboardState extends State<UserDashboard> {
           onPressed: () => Navigator.pushReplacementNamed(context, '/'),
         ),
         title: Text('Dashboard - ${UserSingleton().email}'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              UserSingleton().setUserData(null, null);
+              Navigator.pushReplacementNamed(context, '/');
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(

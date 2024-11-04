@@ -78,6 +78,5 @@ class Property {
             DateFormat('EEE, dd MMM yyyy HH:mm:ss z').parse(json['created_at']),
         updatedAt:
             DateFormat('EEE, dd MMM yyyy HH:mm:ss z').parse(json['updated_at']),
-        //    updatedAt: DateTime.parse(json['updated_at']),
       );
 }

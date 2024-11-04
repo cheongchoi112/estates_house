@@ -1,11 +1,10 @@
 import 'package:estates_house/firebase_options.dart';
+import 'package:estates_house/presentation/ui/themes/my_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'presentation/ui/screens/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'presentation/ui/screens/landing_page.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'theme/my_theme.dart';
 import 'presentation/ui/screens/user_dashboard.dart';
 
 Future<void> main() async {
@@ -28,8 +27,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Property Connect', // Updated App Title
-      theme: myTheme,
+      theme: getMaterial3Theme(),
+      darkTheme: getMaterial3DarkTheme(),
       initialRoute: '/',
+      debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => const LandingPage(),
         '/login': (context) => const LoginPage(),
