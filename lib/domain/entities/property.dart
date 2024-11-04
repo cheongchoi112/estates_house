@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
+import '../../../domain/entities/property.dart';
 
 @JsonSerializable()
 class PriceRange {
@@ -20,12 +22,14 @@ class SearchCriteria {
   final PriceRange? priceRange;
   final String? propertyType;
   final String? listingType;
+  final String? keyword;
 
   SearchCriteria({
     this.city,
     this.priceRange,
     this.propertyType,
     this.listingType,
+    this.keyword,
   });
 
   Map<String, dynamic> toJson() => {
@@ -33,6 +37,7 @@ class SearchCriteria {
         'price_range': priceRange?.toJson(),
         'property_type': propertyType,
         'listing_type': listingType,
+        'keyword': keyword,
       };
 }
 
@@ -49,7 +54,8 @@ class Property {
   final String ownerEmail;
   final DateTime createdAt;
   final DateTime updatedAt;
-
+  final String imageUrl =
+      'https://plus.unsplash.com/premium_photo-1661954372617-15780178eb2e?q=80&w=3860&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
   Property({
     required this.id,
     required this.description,
