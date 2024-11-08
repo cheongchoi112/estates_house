@@ -21,14 +21,14 @@ class PropertyList extends StatelessWidget {
         : LayoutBuilder(
             builder: (context, constraints) {
               // Calculate the number of items per row based on the screen width
-              int crossAxisCount = (constraints.maxWidth / 400).ceil();
+              int crossAxisCount = (constraints.maxWidth / 400).floor();
               if (crossAxisCount > 6) crossAxisCount = 6; //
 
               return GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: crossAxisCount,
+                  crossAxisCount: crossAxisCount == 0 ? 1 : crossAxisCount,
                   childAspectRatio:
                       0.7, // Adjust this ratio to control the height
                 ),
