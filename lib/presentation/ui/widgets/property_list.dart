@@ -21,7 +21,7 @@ class PropertyList extends StatelessWidget {
         : LayoutBuilder(
             builder: (context, constraints) {
               // Calculate the number of items per row based on the screen width
-              int crossAxisCount = (constraints.maxWidth / 400).floor();
+              int crossAxisCount = (constraints.maxWidth / 400).ceil();
               if (crossAxisCount > 6) crossAxisCount = 6; //
 
               return GridView.builder(
