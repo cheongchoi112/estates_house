@@ -30,7 +30,7 @@ class PropertyList extends StatelessWidget {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: crossAxisCount,
                   childAspectRatio:
-                      0.75, // Adjust this ratio to control the height
+                      0.7, // Adjust this ratio to control the height
                 ),
                 itemCount: properties.length,
                 itemBuilder: (context, index) => PropertyCard(
