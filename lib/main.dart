@@ -1,5 +1,6 @@
 import 'package:estates_house/firebase_options.dart';
 import 'package:estates_house/presentation/ui/themes/my_theme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'presentation/ui/screens/login_page.dart';
@@ -15,7 +16,9 @@ Future<void> main() async {
 
   print('Firebase initialized');
   // Ideal time to initialize
-  await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+  if (kDebugMode) {
+    await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+  }
   runApp(const MyApp());
 }
 

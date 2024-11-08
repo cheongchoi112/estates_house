@@ -36,7 +36,7 @@ class _UserDashboardState extends State<UserDashboard> {
       FirebaseApiClient apiClient = FirebaseApiClient();
 
       final response = await apiClient.dio.get(
-        '${UserSingleton.baseUrl}/handle_property_crud/user/properties',
+        '/handle_property_crud/user/properties',
         options: Options(
           headers: {'Authorization': 'Bearer ${UserSingleton().token}'},
         ),
