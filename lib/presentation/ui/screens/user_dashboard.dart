@@ -1,7 +1,9 @@
 import 'package:estates_house/core/network/firebseApiClient.dart';
+import 'package:estates_house/data/services/property_service.dart';
+import 'package:estates_house/data/services/user_session_service.dart';
+import 'package:estates_house/domain/services/i_property_service.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import '../../../domain/user_singleton.dart';
 import '../../../domain/entities/property.dart';
 import '../widgets/property_list.dart';
 
@@ -25,6 +27,8 @@ class _UserDashboardState extends State<UserDashboard> {
   String? selectedPropertyType;
   String? selectedListingType;
 
+  final IPropertyService _propertyService = PropertyService();
+
   @override
   void initState() {
     super.initState();
@@ -33,47 +37,23 @@ class _UserDashboardState extends State<UserDashboard> {
 
   Future<void> _loadUserProperties() async {
     try {
-      FirebaseApiClient apiClient = FirebaseApiClient();
-
-      final response = await apiClient.dio.get(
-        '/handle_property_crud/user/properties',
-        options: Options(
-          headers: {'Authorization': 'Bearer ${UserSingleton().token}'},
-        ),
-      );
-
+      final properties = await _propertyService.getUserProperties();
       setState(() {
-        if (response.data is! Map<String, dynamic>) {
-          return;
-        }
-        final responseData = response.data as Map<String, dynamic>;
-
-        final propertiesList =
-            List<Map<String, dynamic>>.from(responseData['data']);
-
-        final properties = propertiesList
-            .map((propertyJson) => Property.fromJson(propertyJson))
-            .toList();
         userProperties = properties;
       });
     } catch (e) {
-      print(e);
-      // Handle error
+      debugPrint(e.toString());
     }
   }
 
   Future<void> _deleteProperty(String id) async {
     try {
-      FirebaseApiClient apiClient = FirebaseApiClient();
-      await apiClient.dio.delete(
-        '/handle_property_crud/properties/$id',
-      );
+      await _propertyService.deleteProperty(id);
       setState(() {
         userProperties.removeWhere((property) => property.id == id);
       });
     } catch (e) {
       debugPrint(e.toString());
-      // Handle error
     }
   }
 
@@ -92,12 +72,7 @@ class _UserDashboardState extends State<UserDashboard> {
     };
 
     try {
-      FirebaseApiClient apiClient = FirebaseApiClient();
-      await apiClient.dio.post(
-        '/handle_property_crud/properties',
-        data: newProperty,
-      );
-
+      await _propertyService.addProperty(newProperty);
       _loadUserProperties();
       _clearForm();
     } catch (e) {
@@ -124,12 +99,12 @@ class _UserDashboardState extends State<UserDashboard> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pushReplacementNamed(context, '/'),
         ),
-        title: Text('Dashboard - ${UserSingleton().email}'),
+        title: Text('Dashboard - ${UserSessionService().email}'),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
-              UserSingleton().setUserData(null, null);
+              UserSessionService().setUserData(null, null);
               Navigator.pushReplacementNamed(context, '/');
             },
           ),

@@ -14,9 +14,8 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  print('Firebase initialized');
-  // Ideal time to initialize
   if (kDebugMode) {
+    // Ideal time to initialize
     await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
   }
   runApp(const MyApp());

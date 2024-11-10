@@ -1,7 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/material.dart';
-import '../../../domain/entities/property.dart';
 
 @JsonSerializable()
 class PriceRange {

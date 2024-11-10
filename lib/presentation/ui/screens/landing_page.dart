@@ -1,5 +1,7 @@
 import 'package:estates_house/core/network/firebseApiClient.dart';
-import 'package:estates_house/domain/user_singleton.dart';
+import 'package:estates_house/data/services/property_service.dart';
+import 'package:estates_house/data/services/user_session_service.dart';
+import 'package:estates_house/domain/services/i_property_service.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import '../widgets/property_card.dart';
@@ -19,7 +21,8 @@ class _LandingPageState extends State<LandingPage> {
   String? selectedCity;
   String? selectedPropertyType;
   String? selectedListingType;
-  final dio = Dio();
+
+  final IPropertyService _propertyService = PropertyService();
 
   @override
   void initState() {
@@ -35,26 +38,12 @@ class _LandingPageState extends State<LandingPage> {
     );
 
     try {
-      FirebaseApiClient apiClient = FirebaseApiClient();
-      final response = await apiClient.dio.post(
-        '/handle_property_search',
-        data: criteria.toJson(),
-      );
-
+      final searchResults = await _propertyService.searchProperties(criteria);
       setState(() {
-        properties = [];
-        final responseData = response.data as Map<String, dynamic>;
-
-        final propertiesList =
-            List<Map<String, dynamic>>.from(responseData['data']);
-
-        properties = propertiesList
-            .map((propertyJson) => Property.fromJson(propertyJson))
-            .toList();
+        properties = searchResults;
       });
     } catch (e) {
       debugPrint(e.toString());
-      // Handle error
     }
   }
 
@@ -79,7 +68,7 @@ class _LandingPageState extends State<LandingPage> {
           IconButton(
             icon: const Icon(Icons.person),
             onPressed: () {
-              final token = UserSingleton().token;
+              final token = UserSessionService().token;
               if (token != null) {
                 Navigator.pushNamed(context, '/dashboard');
               } else {

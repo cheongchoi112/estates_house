@@ -39,7 +39,7 @@ class FirebaseApiClient {
             // Retry the request
             return handler.resolve(await _dio.fetch(e.requestOptions));
           } catch (e) {
-            print('Error refreshing token: $e');
+            debugPrint('Error refreshing token: $e');
             return handler.next(e as DioException);
           }
         }
@@ -56,7 +56,7 @@ class FirebaseApiClient {
         return token;
       }
     } catch (e) {
-      print('Error getting token: $e');
+      debugPrint('Error getting token: $e');
     }
     return null;
   }
@@ -67,8 +67,7 @@ class FirebaseApiClient {
       if (response.statusCode == 200) {
         return response.data as Map<String, dynamic>;
       } else {
-        // Handle errors
-        print('Error: ${response.statusCode}');
+        debugPrint('Error: ${response.statusCode}');
       }
     } catch (e) {
       debugPrint('Error: $e');
