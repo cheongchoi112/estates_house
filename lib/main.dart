@@ -1,3 +1,4 @@
+import 'package:estates_house/core/dependency_injection/setup_locator.dart';
 import 'package:estates_house/firebase_options.dart';
 import 'package:estates_house/presentation/ui/themes/my_theme.dart';
 import 'package:flutter/foundation.dart';
@@ -18,6 +19,7 @@ Future<void> main() async {
     // Ideal time to initialize
     await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
   }
+  setupLocator();
   runApp(const MyApp());
 }
 

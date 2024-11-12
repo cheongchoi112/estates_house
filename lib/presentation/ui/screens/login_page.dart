@@ -1,6 +1,7 @@
-import 'package:estates_house/data/services/user_session_service.dart';
+import 'package:estates_house/domain/services/i_user_session_service.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get_it/get_it.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -15,6 +16,8 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController =
       TextEditingController(text: '111111');
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final IUserSessionService _userSessionService =
+      GetIt.instance<IUserSessionService>();
 
   Future<void> _login() async {
     try {
@@ -26,8 +29,8 @@ class _LoginPageState extends State<LoginPage> {
       debugPrint('Successfully logged in: ${userCredential.user?.email}');
       userCredential.user?.getIdToken().then((value) {
         if (value != null) {
-          UserSessionService()
-              .setUserData(value, userCredential.user?.email ?? '');
+          _userSessionService.setUserData(
+              value, userCredential.user?.email ?? '');
           Navigator.pushReplacementNamed(context, '/dashboard');
           debugPrint('Token: $value');
         }
@@ -53,8 +56,8 @@ class _LoginPageState extends State<LoginPage> {
 
       final token = await userCredential.user?.getIdToken();
       if (token != null) {
-        UserSessionService()
-            .setUserData(token, userCredential.user?.email ?? '');
+        _userSessionService.setUserData(
+            token, userCredential.user?.email ?? '');
         Navigator.pushReplacementNamed(context, '/dashboard');
       }
     } catch (e) {

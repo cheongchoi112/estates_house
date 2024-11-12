@@ -1,11 +1,10 @@
-import 'package:estates_house/core/network/firebseApiClient.dart';
-import 'package:estates_house/data/services/property_service.dart';
-import 'package:estates_house/data/services/user_session_service.dart';
+import 'package:estates_house/domain/entities/property.dart';
 import 'package:estates_house/domain/services/i_property_service.dart';
+import 'package:estates_house/domain/services/i_user_session_service.dart';
+import 'package:estates_house/presentation/ui/widgets/property_list.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import '../../../domain/entities/property.dart';
-import '../widgets/property_list.dart';
+import 'package:get_it/get_it.dart';
 
 class UserDashboard extends StatefulWidget {
   const UserDashboard({super.key});
@@ -20,14 +19,16 @@ class _UserDashboardState extends State<UserDashboard> {
   final _formKey = GlobalKey<FormState>();
 
   // Form controllers
-  final _descriptionController = TextEditingController(text: 'test');
-  final _priceController = TextEditingController(text: '111111');
-  final _addressController = TextEditingController(text: 'test');
+  final _descriptionController = TextEditingController();
+  final _priceController = TextEditingController();
+  final _addressController = TextEditingController();
   String? selectedCity;
   String? selectedPropertyType;
   String? selectedListingType;
 
-  final IPropertyService _propertyService = PropertyService();
+  final IPropertyService _propertyService = GetIt.instance<IPropertyService>();
+  final IUserSessionService _userSessionService =
+      GetIt.instance<IUserSessionService>();
 
   @override
   void initState() {
@@ -99,12 +100,12 @@ class _UserDashboardState extends State<UserDashboard> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pushReplacementNamed(context, '/'),
         ),
-        title: Text('Dashboard - ${UserSessionService().email}'),
+        title: Text('Dashboard - ${_userSessionService.email}'),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
-              UserSessionService().setUserData(null, null);
+              _userSessionService.clearUserData();
               Navigator.pushReplacementNamed(context, '/');
             },
           ),

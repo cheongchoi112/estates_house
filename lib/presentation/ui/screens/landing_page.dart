@@ -1,12 +1,9 @@
-import 'package:estates_house/core/network/firebseApiClient.dart';
-import 'package:estates_house/data/services/property_service.dart';
-import 'package:estates_house/data/services/user_session_service.dart';
+import 'package:estates_house/domain/entities/property.dart';
 import 'package:estates_house/domain/services/i_property_service.dart';
+import 'package:estates_house/domain/services/i_user_session_service.dart';
+import 'package:estates_house/presentation/ui/widgets/property_list.dart';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-import '../widgets/property_card.dart';
-import '../widgets/property_list.dart';
-import '../../../domain/entities/property.dart';
+import 'package:get_it/get_it.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -22,7 +19,9 @@ class _LandingPageState extends State<LandingPage> {
   String? selectedPropertyType;
   String? selectedListingType;
 
-  final IPropertyService _propertyService = PropertyService();
+  final IPropertyService _propertyService = GetIt.instance<IPropertyService>();
+  final IUserSessionService _userSessionService =
+      GetIt.instance<IUserSessionService>();
 
   @override
   void initState() {
@@ -68,7 +67,7 @@ class _LandingPageState extends State<LandingPage> {
           IconButton(
             icon: const Icon(Icons.person),
             onPressed: () {
-              final token = UserSessionService().token;
+              final token = _userSessionService.token;
               if (token != null) {
                 Navigator.pushNamed(context, '/dashboard');
               } else {
