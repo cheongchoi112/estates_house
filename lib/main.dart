@@ -9,6 +9,37 @@ import 'package:firebase_core/firebase_core.dart';
 import 'presentation/ui/screens/landing_page.dart';
 import 'presentation/ui/screens/user_dashboard.dart';
 
+/// The project follows the principles of Clean Architecture, which ensures a modular, testable, and maintainable codebase.
+/// Here's a brief overview of each layer:
+///
+/// **Presentation Layer**:
+/// - **Purpose**: Contains the UI components and screens of the application.
+/// - **Files**:
+///   - `LandingPage`: The main landing page where users can search for properties.
+///   - `LoginPage`: The login page for user authentication.
+///   - `UserDashboard`: The user dashboard for managing properties.
+///   - **Widgets**: Reusable UI components like `PropertyList` and `PropertyCard`.
+///
+/// **Domain Layer**:
+/// - **Purpose**: Contains the core business logic and entities.
+/// - **Files**:
+///   - **Entities**: Data models like `Property`.
+///   - **Services**: Interfaces for business operations, e.g., `IPropertyService` and `IUserSessionService`.
+///
+/// **Data Layer**:
+/// - **Purpose**: Handles data access and service implementations.
+/// - **Files**:
+///   - **Services**: Concrete implementations of domain service interfaces, e.g., `PropertyService` and `UserSessionService`.
+///
+/// **Core Layer**:
+/// - **Purpose**: Contains core utilities and configurations.
+/// - **Files**:
+///   - **Network**: Network-related utilities like `FirebaseApiClient`.
+///   - **Dependency Injection**: Setup for dependency injection using `GetIt`, e.g., `setup_locator`.
+
+/// Main entry point of the application.
+///
+/// This function initializes Firebase, sets up dependency injection, and runs the app.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

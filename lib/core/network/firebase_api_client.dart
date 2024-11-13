@@ -2,10 +2,17 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
+/// A client for making HTTP requests to the Firebase backend.
+///
+/// This class implements the Singleton design pattern to ensure that
+/// only one instance of the `FirebaseApiClient` exists throughout the
+/// application. It initializes the Dio instance and sets up interceptors
+/// for handling authentication tokens.
 class FirebaseApiClient {
   static final FirebaseApiClient _instance =
       FirebaseApiClient._privateConstructor();
 
+  /// Factory constructor that returns the singleton instance.
   factory FirebaseApiClient() => _instance;
 
   final Dio _dio = Dio();

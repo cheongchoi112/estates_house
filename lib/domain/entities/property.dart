@@ -1,5 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 
+/// Represents a price range with minimum and maximum values.
+///
+/// This class is used as part of the `SearchCriteria` to filter properties
+/// based on their price range.
+/// TODO: This is not implemented in the current version of the app.
 @JsonSerializable()
 class PriceRange {
   final double minPrice;
@@ -13,6 +18,10 @@ class PriceRange {
       };
 }
 
+/// Represents the criteria for searching properties.
+///
+/// This class is used to encapsulate the search filters such as city,
+/// price range, property type, listing type, and keyword.
 @JsonSerializable()
 class SearchCriteria {
   final String? city;
@@ -38,6 +47,11 @@ class SearchCriteria {
       };
 }
 
+/// Represents a property entity in the application.
+///
+/// This class is part of the domain layer and encapsulates the core data
+/// related to a property, such as its description, price, address, and owner
+/// information.
 @JsonSerializable()
 class Property {
   final String id;

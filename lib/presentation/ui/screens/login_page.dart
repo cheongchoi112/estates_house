@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 
+/// The login page for user authentication.
+///
+/// This screen depends on `IUserSessionService` for managing user sessions.
+/// It handles user login using Firebase Authentication and sets the user data
+/// in the session service.
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 

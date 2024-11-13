@@ -6,6 +6,12 @@ import 'package:get_it/get_it.dart';
 import 'package:estates_house/domain/services/i_user_session_service.dart';
 import 'package:estates_house/domain/factory/property_factory.dart';
 
+/// Implementation of `IPropertyService` for managing property data.
+///
+/// This class uses the Repository pattern to abstract the data access layer
+/// from the domain logic. It depends on `FirebaseApiClient` for making HTTP
+/// requests and `IUserSessionService` for including the user's authentication
+/// token in requests.
 class PropertyService implements IPropertyService {
   final Dio dio;
   final IUserSessionService _userSessionService =

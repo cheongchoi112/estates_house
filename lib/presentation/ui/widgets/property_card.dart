@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../../domain/entities/property.dart';
 
+/// A widget that represents an individual property card.
+///
+/// This widget is used in the presentation layer to display the details of a
+/// property, such as its image, description, price, and owner information.
+/// It also provides an option to delete the property if the `onDelete` callback
+/// is provided.
 class PropertyCard extends StatelessWidget {
   final Property property;
   final VoidCallback? onDelete;
@@ -104,7 +110,6 @@ class PropertyCard extends StatelessWidget {
               ),
             ],
           ),
-          // Delete Button at Top Right
           if (onDelete != null)
             Positioned(
               top: 8,
