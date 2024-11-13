@@ -134,85 +134,87 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      // Center the search bar on the screen
       child: Container(
-        width: 500,
+        width: 500, // Fixed width or adjust as needed
         margin: const EdgeInsets.symmetric(vertical: 16),
-        padding: const EdgeInsets.symmetric(horizontal: 8),
+        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            // Expanded(
-            //   child: TextField(
-            //     controller: searchController,
-            //     decoration: const InputDecoration(
-            //       hintText: 'Search properties...',
-            //       border: InputBorder.none,
-            //     ),
-            //   ),
-            // ),
-            const SizedBox(width: 8), // Spacer between controls
-            DropdownButton<String>(
-              alignment: Alignment.center, // Center the text
-              underline: const SizedBox(),
-              hint: const Text('City', textAlign: TextAlign.center),
-              value: selectedCity,
-              items: ['Toronto', 'Hamilton']
-                  .map(
-                    (city) => DropdownMenuItem(
-                      value: city,
-                      child: Text(city, textAlign: TextAlign.center),
-                    ),
-                  )
-                  .toList(),
-              onChanged: onCityChanged,
-            ),
-            const SizedBox(width: 8),
-            DropdownButton<String>(
-              alignment: Alignment.center,
-              underline: const SizedBox(),
-              hint: const Text('Property Type', textAlign: TextAlign.center),
-              value: selectedPropertyType,
-              items: ['House', 'Condo']
-                  .map(
-                    (type) => DropdownMenuItem(
-                      value: type,
-                      child: Text(type, textAlign: TextAlign.center),
-                    ),
-                  )
-                  .toList(),
-              onChanged: onPropertyTypeChanged,
-            ),
-            const SizedBox(width: 8),
-            DropdownButton<String>(
-              alignment: Alignment.center,
-              underline: const SizedBox(),
-              hint: const Text('Listing Type', textAlign: TextAlign.center),
-              value: selectedListingType,
-              items: ['For Sale', 'For Rent']
-                  .map(
-                    (listing) => DropdownMenuItem(
-                      value: listing,
-                      child: Text(listing, textAlign: TextAlign.center),
-                    ),
-                  )
-                  .toList(),
-              onChanged: onListingTypeChanged,
-            ),
-            const SizedBox(width: 8),
-            IconButton(
-              icon: const Icon(Icons.clear),
-              onPressed: onClearFilters,
-            ),
-            IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: onSearch,
-            ),
-          ],
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              alignment: WrapAlignment.spaceEvenly,
+              children: [
+                // Expanded(
+                //   child: TextField(
+                //     controller: searchController,
+                //     decoration: const InputDecoration(
+                //       hintText: 'Search properties...',
+                //       border: InputBorder.none,
+                //     ),
+                //   ),
+                // ),
+                DropdownButton<String>(
+                  alignment: Alignment.center,
+                  underline: const SizedBox(),
+                  hint: const Text('City', textAlign: TextAlign.center),
+                  value: selectedCity,
+                  items: ['Toronto', 'Hamilton']
+                      .map(
+                        (city) => DropdownMenuItem(
+                          value: city,
+                          child: Text(city, textAlign: TextAlign.center),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: onCityChanged,
+                ),
+                DropdownButton<String>(
+                  alignment: Alignment.center,
+                  underline: const SizedBox(),
+                  hint:
+                      const Text('Property Type', textAlign: TextAlign.center),
+                  value: selectedPropertyType,
+                  items: ['House', 'Condo']
+                      .map(
+                        (type) => DropdownMenuItem(
+                          value: type,
+                          child: Text(type, textAlign: TextAlign.center),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: onPropertyTypeChanged,
+                ),
+                DropdownButton<String>(
+                  alignment: Alignment.center,
+                  underline: const SizedBox(),
+                  hint: const Text('Listing Type', textAlign: TextAlign.center),
+                  value: selectedListingType,
+                  items: ['For Sale', 'For Rent']
+                      .map(
+                        (listing) => DropdownMenuItem(
+                          value: listing,
+                          child: Text(listing, textAlign: TextAlign.center),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: onListingTypeChanged,
+                ),
+                IconButton(
+                  icon: const Icon(Icons.clear),
+                  onPressed: onClearFilters,
+                ),
+                IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: onSearch,
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
