@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:intl/intl.dart';
 
 @JsonSerializable()
 class PriceRange {
@@ -54,6 +53,7 @@ class Property {
   final DateTime updatedAt;
   final String imageUrl =
       'https://plus.unsplash.com/premium_photo-1661954372617-15780178eb2e?q=80&w=3860&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+
   Property({
     required this.id,
     required this.description,
@@ -67,20 +67,4 @@ class Property {
     required this.createdAt,
     required this.updatedAt,
   });
-
-  factory Property.fromJson(Map<String, dynamic> json) => Property(
-        id: json['id'],
-        description: json['description'],
-        price: json['price'].toDouble(),
-        streetAddress: json['street_address'],
-        city: json['city'],
-        propertyType: json['property_type'],
-        listingType: json['listing_type'],
-        ownerUserId: json['owner_user_id'],
-        ownerEmail: json['owner_email'],
-        createdAt:
-            DateFormat('EEE, dd MMM yyyy HH:mm:ss z').parse(json['created_at']),
-        updatedAt:
-            DateFormat('EEE, dd MMM yyyy HH:mm:ss z').parse(json['updated_at']),
-      );
 }

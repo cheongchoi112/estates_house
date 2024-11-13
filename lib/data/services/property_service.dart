@@ -1,15 +1,16 @@
 import 'package:dio/dio.dart';
-import 'package:estates_house/core/network/firebseApiClient.dart';
-import 'package:estates_house/data/services/user_session_service.dart';
+import 'package:estates_house/core/network/firebase_api_client.dart';
 import 'package:estates_house/domain/entities/property.dart';
 import 'package:estates_house/domain/services/i_property_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:estates_house/domain/services/i_user_session_service.dart';
+import 'package:estates_house/domain/factory/property_factory.dart';
 
 class PropertyService implements IPropertyService {
   final Dio dio;
   final IUserSessionService _userSessionService =
       GetIt.instance<IUserSessionService>();
+  final IPropertyFactory _propertyFactory = GetIt.instance<IPropertyFactory>();
 
   PropertyService() : dio = FirebaseApiClient().dio;
 
@@ -32,7 +33,7 @@ class PropertyService implements IPropertyService {
         List<Map<String, dynamic>>.from(responseData['data']);
 
     return propertiesList
-        .map((propertyJson) => Property.fromJson(propertyJson))
+        .map((propertyJson) => _propertyFactory.createFromJson(propertyJson))
         .toList();
   }
 
@@ -67,7 +68,7 @@ class PropertyService implements IPropertyService {
         List<Map<String, dynamic>>.from(responseData['data']);
 
     return propertiesList
-        .map((propertyJson) => Property.fromJson(propertyJson))
+        .map((propertyJson) => _propertyFactory.createFromJson(propertyJson))
         .toList();
   }
 }

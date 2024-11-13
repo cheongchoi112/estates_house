@@ -8,11 +8,11 @@ class PropertyList extends StatelessWidget {
   final Function(String)? onDelete;
 
   const PropertyList({
-    Key? key,
+    super.key,
     required this.properties,
     this.allowDelete = false,
     this.onDelete,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
