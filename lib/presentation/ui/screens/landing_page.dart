@@ -5,6 +5,11 @@ import 'package:estates_house/presentation/ui/widgets/property_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
+/// The main landing page where users can search for properties.
+///
+/// This screen uses `IPropertyService` and `IUserSessionService` for fetching
+/// property data and managing user sessions. It utilizes `PropertyList` and
+/// `PropertyCard` for displaying properties.
 class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
 
@@ -53,7 +58,7 @@ class _LandingPageState extends State<LandingPage> {
       selectedListingType = null;
       _searchController.clear();
       setState(() {
-        properties = []; // Empty the listing before loading new properties
+        properties = [];
       });
     });
   }

@@ -6,6 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
+/// The user dashboard for managing properties.
+///
+/// This screen uses `IPropertyService` and `IUserSessionService` for managing
+/// properties and user sessions. It utilizes `PropertyList` and `PropertyCard`
+/// for displaying user properties.
 class UserDashboard extends StatefulWidget {
   const UserDashboard({super.key});
 

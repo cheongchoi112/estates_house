@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import '../../../domain/entities/property.dart';
 import 'property_card.dart';
 
+/// A widget that displays a list of properties.
+///
+/// This widget uses a `GridView` to display the properties in a grid layout.
+/// It calculates the number of items per row based on the screen width and
+/// allows for deletion of properties if `allowDelete` is set to true.
 class PropertyList extends StatelessWidget {
   final List<Property> properties;
   final bool allowDelete;

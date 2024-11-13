@@ -5,6 +5,11 @@ abstract class IPropertyFactory {
   Property createFromJson(Map<String, dynamic> json);
 }
 
+/// A factory for creating `Property` objects.
+///
+/// This class uses the Factory design pattern to encapsulate the creation
+/// logic of `Property` objects. It provides methods to create `Property`
+/// instances from JSON data or with default values.
 class PropertyFactory implements IPropertyFactory {
   @override
   Property createFromJson(Map<String, dynamic> json) {
