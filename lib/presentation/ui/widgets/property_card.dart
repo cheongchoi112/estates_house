@@ -6,10 +6,10 @@ class PropertyCard extends StatelessWidget {
   final VoidCallback? onDelete;
 
   const PropertyCard({
-    Key? key,
+    super.key,
     required this.property,
     this.onDelete,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

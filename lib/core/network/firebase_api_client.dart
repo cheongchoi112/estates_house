@@ -3,10 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
 class FirebaseApiClient {
-  FirebaseApiClient._privateConstructor();
-
   static final FirebaseApiClient _instance =
-      FirebaseApiClient._privateConstructor1();
+      FirebaseApiClient._privateConstructor();
 
   factory FirebaseApiClient() => _instance;
 
@@ -14,7 +12,7 @@ class FirebaseApiClient {
   Dio get dio => _dio;
 
   // Initialize the Dio instance and interceptors
-  FirebaseApiClient._privateConstructor1() {
+  FirebaseApiClient._privateConstructor() {
     if (kDebugMode) {
       _dio.options.baseUrl =
           'http://127.0.0.1:5001/house-platform-78131/us-central1';
@@ -60,20 +58,4 @@ class FirebaseApiClient {
     }
     return null;
   }
-
-  Future<Map<String, dynamic>?> fetchData() async {
-    try {
-      Response response = await _dio.get('YOUR_FIREBASE_FUNCTION_URL');
-      if (response.statusCode == 200) {
-        return response.data as Map<String, dynamic>;
-      } else {
-        debugPrint('Error: ${response.statusCode}');
-      }
-    } catch (e) {
-      debugPrint('Error: $e');
-    }
-    return null;
-  }
-
-  // Add more methods for other API endpoints (e.g., POST, PUT, DELETE)
 }
