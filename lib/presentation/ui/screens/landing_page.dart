@@ -62,7 +62,7 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Property Landing Page'),
+        title: const Text('Property Connect'),
         actions: [
           IconButton(
             icon: const Icon(Icons.person),
@@ -82,66 +82,135 @@ class _LandingPageState extends State<LandingPage> {
           children: [
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  TextField(
-                    controller: _searchController,
-                    decoration: InputDecoration(
-                      hintText: 'Search properties...',
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.search),
-                        onPressed: _search,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      DropdownButton<String>(
-                        hint: const Text('City'),
-                        value: selectedCity,
-                        items: ['Toronto', 'Hamilton']
-                            .map((c) =>
-                                DropdownMenuItem(value: c, child: Text(c)))
-                            .toList(),
-                        onChanged: (value) =>
-                            setState(() => selectedCity = value),
-                      ),
-                      DropdownButton<String>(
-                        hint: const Text('Property Type'),
-                        value: selectedPropertyType,
-                        items: ['House', 'Condo']
-                            .map((type) => DropdownMenuItem(
-                                value: type, child: Text(type)))
-                            .toList(),
-                        onChanged: (value) =>
-                            setState(() => selectedPropertyType = value),
-                      ),
-                      DropdownButton<String>(
-                        hint: const Text('Listing Type'),
-                        value: selectedListingType,
-                        items: ['For Sale', 'For Rent']
-                            .map((type) => DropdownMenuItem(
-                                value: type, child: Text(type)))
-                            .toList(),
-                        onChanged: (value) =>
-                            setState(() => selectedListingType = value),
-                      ),
-                      ElevatedButton.icon(
-                        onPressed: _clearFilters,
-                        icon: const Icon(Icons.clear),
-                        label: const Text('Clear Filters'),
-                      ),
-                    ],
-                  ),
-                ],
+              child: SearchBar(
+                searchController: _searchController,
+                selectedCity: selectedCity,
+                selectedPropertyType: selectedPropertyType,
+                selectedListingType: selectedListingType,
+                onCityChanged: (value) => setState(() => selectedCity = value),
+                onPropertyTypeChanged: (value) =>
+                    setState(() => selectedPropertyType = value),
+                onListingTypeChanged: (value) =>
+                    setState(() => selectedListingType = value),
+                onSearch: _search,
+                onClearFilters: _clearFilters,
               ),
             ),
             const SizedBox(height: 16),
             PropertyList(
               properties: properties,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SearchBar extends StatelessWidget {
+  final TextEditingController searchController;
+  final String? selectedCity;
+  final String? selectedPropertyType;
+  final String? selectedListingType;
+  final ValueChanged<String?> onCityChanged;
+  final ValueChanged<String?> onPropertyTypeChanged;
+  final ValueChanged<String?> onListingTypeChanged;
+  final VoidCallback onSearch;
+  final VoidCallback onClearFilters;
+
+  const SearchBar({
+    Key? key,
+    required this.searchController,
+    required this.selectedCity,
+    required this.selectedPropertyType,
+    required this.selectedListingType,
+    required this.onCityChanged,
+    required this.onPropertyTypeChanged,
+    required this.onListingTypeChanged,
+    required this.onSearch,
+    required this.onClearFilters,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      // Center the search bar on the screen
+      child: Container(
+        width: 500,
+        margin: const EdgeInsets.symmetric(vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            // Expanded(
+            //   child: TextField(
+            //     controller: searchController,
+            //     decoration: const InputDecoration(
+            //       hintText: 'Search properties...',
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
+            const SizedBox(width: 8), // Spacer between controls
+            DropdownButton<String>(
+              alignment: Alignment.center, // Center the text
+              underline: const SizedBox(),
+              hint: const Text('City', textAlign: TextAlign.center),
+              value: selectedCity,
+              items: ['Toronto', 'Hamilton']
+                  .map(
+                    (city) => DropdownMenuItem(
+                      value: city,
+                      child: Text(city, textAlign: TextAlign.center),
+                    ),
+                  )
+                  .toList(),
+              onChanged: onCityChanged,
+            ),
+            const SizedBox(width: 8),
+            DropdownButton<String>(
+              alignment: Alignment.center,
+              underline: const SizedBox(),
+              hint: const Text('Property Type', textAlign: TextAlign.center),
+              value: selectedPropertyType,
+              items: ['House', 'Condo']
+                  .map(
+                    (type) => DropdownMenuItem(
+                      value: type,
+                      child: Text(type, textAlign: TextAlign.center),
+                    ),
+                  )
+                  .toList(),
+              onChanged: onPropertyTypeChanged,
+            ),
+            const SizedBox(width: 8),
+            DropdownButton<String>(
+              alignment: Alignment.center,
+              underline: const SizedBox(),
+              hint: const Text('Listing Type', textAlign: TextAlign.center),
+              value: selectedListingType,
+              items: ['For Sale', 'For Rent']
+                  .map(
+                    (listing) => DropdownMenuItem(
+                      value: listing,
+                      child: Text(listing, textAlign: TextAlign.center),
+                    ),
+                  )
+                  .toList(),
+              onChanged: onListingTypeChanged,
+            ),
+            const SizedBox(width: 8),
+            IconButton(
+              icon: const Icon(Icons.clear),
+              onPressed: onClearFilters,
+            ),
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: onSearch,
             ),
           ],
         ),
