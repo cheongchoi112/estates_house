@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "913439117784",
+    "project_id": "house-platform-78131",
+    "storage_bucket": "house-platform-78131.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:913439117784:android:ad1e4e8940bb08a1ef62ad",
+        "android_client_info": {
+          "package_name": "house.estate.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhdDPZoAFW_hM_vCYrPrsgaC2SnOfoh0Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
