@@ -159,6 +159,10 @@ firebase-debug.*.log*
 # it commented so all members can deploy to the same project(s) in .firebaserc.
 # .firebaserc
 
+# flutterfire
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+
 # Runtime data
 pids
 *.pid
