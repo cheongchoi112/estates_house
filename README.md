@@ -72,6 +72,16 @@ To upgrade your Flutter dependencies to the latest major versions, run:
 flutter pub upgrade --major-versions
 ```
 
+### Firebase Hosting Deployment
+
+```sh
+flutter build web --release
+
+firebase deploy --only hosting:house-platform-78131
+
+firebase deploy --only hosting:homemvp
+```
+
 ## Project Structure
 
 This project follows the principles of Clean Architecture for a modular, testable, and maintainable codebase. Here’s an overview of each layer:

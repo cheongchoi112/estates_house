@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "house-platform-78131"
+  },
+  "targets": {
+    "house-platform-78131": {
+      "hosting": {
+        "house-platform-78131": [
+          "house-platform-78131"
+        ],
+        "homemvp": [
+          "homemvp"
+        ]
+      }
+    }
   }
 }
