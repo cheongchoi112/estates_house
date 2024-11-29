@@ -114,3 +114,7 @@ This project follows the principles of Clean Architecture for a modular, testabl
 - **Files:**
   - `Network`: Network-related utilities like `FirebaseApiClient`.
   - `Dependency Injection`: Setup for dependency injection using `GetIt`, e.g., `setup_locator`.
+
+## Android Issue
+### Execution failed for task ':path_provider_android:compileDebugJavaWithJavac'.
+https://github.com/flutter/flutter/issues/156304#issuecomment-2397707812
