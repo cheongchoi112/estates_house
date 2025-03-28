@@ -5,7 +5,7 @@ ThemeData getMaterial3Theme() {
   return ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: Colors.blue,
+      seedColor: Colors.indigo,
       brightness: Brightness.light,
     ),
     textTheme: GoogleFonts.robotoTextTheme().copyWith(
