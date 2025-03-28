@@ -1,4 +1,4 @@
-import '../entities/property.dart';
+import '../../../property_listing/domain/entities/property.dart';
 import 'package:intl/intl.dart';
 
 abstract class IPropertyFactory {

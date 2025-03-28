@@ -1,4 +1,4 @@
-import 'package:estates_house/domain/entities/property.dart';
+import '../entities/property.dart';
 
 /// Interface for property-related operations.
 ///

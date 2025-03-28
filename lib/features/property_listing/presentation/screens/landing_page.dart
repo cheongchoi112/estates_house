@@ -1,10 +1,12 @@
-import 'package:estates_house/domain/entities/property.dart';
-import 'package:estates_house/domain/services/i_property_service.dart';
-import 'package:estates_house/domain/services/i_user_session_service.dart';
-import 'package:estates_house/presentation/ui/widgets/property_list.dart';
-import 'package:estates_house/presentation/ui/widgets/property_search_bar.dart';
+
+import 'package:estates_house/features/user_management/domain/services/i_user_session_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+
+import '../../domain/entities/property.dart';
+import '../../domain/interfaces/i_property_service.dart';
+import '../widgets/property_list.dart';
+import '../widgets/property_search_bar.dart';
 
 /// The main landing page where users can search for properties.
 ///

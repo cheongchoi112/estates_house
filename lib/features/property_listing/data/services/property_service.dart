@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:estates_house/core/network/firebase_api_client.dart';
-import 'package:estates_house/domain/entities/property.dart';
-import 'package:estates_house/domain/services/i_property_service.dart';
-import 'package:get_it/get_it.dart';
-import 'package:estates_house/domain/services/i_user_session_service.dart';
-import 'package:estates_house/domain/factory/property_factory.dart';
+
+import '../../../user_management/domain/services/i_user_session_service.dart';
+import '../../domain/entities/property.dart';
+import '../../domain/factory/property_factory.dart';
+import '../../domain/interfaces/i_property_service.dart';
 
 /// Implementation of `IPropertyService` for managing property data.
 ///
@@ -13,12 +12,11 @@ import 'package:estates_house/domain/factory/property_factory.dart';
 /// requests and `IUserSessionService` for including the user's authentication
 /// token in requests.
 class PropertyService implements IPropertyService {
+  final IUserSessionService _userSessionService;
+  final IPropertyFactory _propertyFactory;
   final Dio dio;
-  final IUserSessionService _userSessionService =
-      GetIt.instance<IUserSessionService>();
-  final IPropertyFactory _propertyFactory = GetIt.instance<IPropertyFactory>();
 
-  PropertyService() : dio = FirebaseApiClient().dio;
+  PropertyService(this._userSessionService, this._propertyFactory, this.dio);
 
   @override
   Future<List<Property>> getUserProperties() async {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../domain/entities/property.dart';
+import '../../domain/entities/property.dart';
 import 'property_card.dart';
 
 /// A widget that displays a list of properties.

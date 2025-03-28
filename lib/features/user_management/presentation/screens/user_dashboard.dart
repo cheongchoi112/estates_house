@@ -1,10 +1,11 @@
-import 'package:estates_house/domain/entities/property.dart';
-import 'package:estates_house/domain/services/i_property_service.dart';
-import 'package:estates_house/domain/services/i_user_session_service.dart';
-import 'package:estates_house/presentation/ui/widgets/property_list.dart';
+import 'package:estates_house/features/property_listing/domain/entities/property.dart';
+import 'package:estates_house/features/property_listing/domain/interfaces/i_property_service.dart';
+import 'package:estates_house/features/property_listing/presentation/widgets/property_list.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+
+import '../../domain/services/i_user_session_service.dart';
 
 /// The user dashboard for managing properties.
 ///

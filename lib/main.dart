@@ -1,13 +1,14 @@
-import 'package:estates_house/core/dependency_injection/setup_locator.dart';
+import 'package:estates_house/features/user_management/presentation/screens/login_page.dart';
+import 'package:estates_house/features/user_management/presentation/screens/user_dashboard.dart';
 import 'package:estates_house/firebase_options.dart';
-import 'package:estates_house/presentation/ui/themes/my_theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'presentation/ui/screens/login_page.dart';
+import 'app/dependency_injection/setup_locator.dart';
+import 'features/property_listing/presentation/screens/landing_page.dart';
+
+import 'shared/themes/my_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'presentation/ui/screens/landing_page.dart';
-import 'presentation/ui/screens/user_dashboard.dart';
 
 /// The project follows the principles of Clean Architecture, which ensures a modular, testable, and maintainable codebase.
 /// Here's a brief overview of each layer:

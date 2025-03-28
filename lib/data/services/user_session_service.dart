@@ -1,4 +1,4 @@
-import 'package:estates_house/domain/services/i_user_session_service.dart';
+import '../../features/user_management/domain/services/i_user_session_service.dart';
 
 /// Implementation of `IUserSessionService` for managing user sessions.
 ///
